@@ -6,8 +6,9 @@ name = "pypi"
 [packages]
 flask = "*"
 docker = "*"
+flask-cors = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3.10"
+python_version = "3.8.10"
