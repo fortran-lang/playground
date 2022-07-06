@@ -9,3 +9,5 @@ RUN sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|
 #Installing gfortran
 RUN yum update -y
 RUN yum install -y gcc-gfortran gdb make
+
+WORKDIR /fortran/
