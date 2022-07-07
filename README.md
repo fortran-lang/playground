@@ -1,11 +1,12 @@
 # playground
 An interactive Fortran playground
-#Instructions to run
 
-#Flask API
+# Instructions to run
+
+# Flask API
 1. Install Docker
 2. Build docker image (Switch to docker directory)
-``` docker build  -t .``` 
+``` docker build -t newfort .``` 
 3. Install pipenv to manage packages 
 ```pip install pipenv```
 4. Switch to backend directory and 
@@ -13,7 +14,7 @@ An interactive Fortran playground
 5. Run the flask server
 ```pipenv run flask run```
 
-#React frontend
+# React frontend
 Switch to frontend folder
 1. Install node packages
 ```npm install``
