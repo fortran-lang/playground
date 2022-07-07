@@ -1,0 +1,39 @@
+
+.code-wrapper{
+  margin: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.terminal{
+  height: 35rem;
+  width: 40%;
+  border: 2px solid black;
+  
+}
+
+.run-button{
+  height: 50px;
+  width: 70px;
+  padding-top: 15rem;
+}
+
+
+#execute{
+  height: 50px;
+  width: 70px;
+}
+
+.linkText{
+  color:#FDFEFE
+}
+.linkText:hover{
+  color:#B3B6B7;
+  
+}
+
+.options{
+  display: flex;
+  
+}
+
