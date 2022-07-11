@@ -38,7 +38,7 @@ def copy_to(src, dst, container):
 #Executing code inside container and getting it's output
 def execute_code_in_container():
   client = docker.from_env()
-  container = client.containers.run('newfort', tty=True,detach=True)
+  container = client.containers.run('playground-small', tty=True,detach=True)
   copy_to('./File.f90', '/fortran/File.f90',container)
   container.exec_run('gfortran File.f90 -o executed_file.o',demux=True)
   a = container.exec_run('./executed_file.o')
