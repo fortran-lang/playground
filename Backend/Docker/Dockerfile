@@ -1,13 +1,11 @@
-#Basic container
-FROM centos:latest
+#Basic Container
+FROM alpine:latest
 
-#fixes for centos yum
-RUN cd /etc/yum.repos.d/
-RUN sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*
-RUN sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*
+#Installing necessary packages
+RUN apk add --no-cache bash bash-doc bash-completion
+RUN apk add --no-cache musl-dev
+RUN apk add --no-cache gfortran
 
-#Installing gfortran
-RUN yum update -y
-RUN yum install -y gcc-gfortran gdb make
+#Assigning default directory
+WORKDIR /fortran
 
-WORKDIR /fortran/
