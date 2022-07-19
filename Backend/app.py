@@ -45,8 +45,11 @@ def copy_to(src, dst, container):
 def execute_code_in_container():
   copy_to('./File.f90', '/fortran/File.f90',container)
   copy_to('./program_input.txt', '/fortran/program_input.txt',container)
-  container.exec_run('gfortran File.f90 -o executed_file.o')
-  a = container.exec_run('sh -c "cat program_input.txt | ./executed_file.o"')
+  executable = container.exec_run('gfortran File.f90 -o executed_file.o',demux=True)
+  if(executable.exit_code==0):
+    a = container.exec_run('sh -c "cat program_input.txt | ./executed_file.o"', demux=True)
+  else:
+    a = executable
   return a
     
 
@@ -57,8 +60,13 @@ def run_code():
   data = request.get_json()
   edit_file(data["code"],data["programInput"])
   code_result = execute_code_in_container()
-  print(code_result.output.decode())
-  output = jsonify({"executed" : code_result.output.decode()})
+  if code_result.exit_code == 0:
+    print(code_result.output[0].decode())
+    output = jsonify({"executed" : code_result.output[0].decode()})
+  else:
+    print(code_result.output[1].decode())
+    output = jsonify({"executed" : code_result.output[1].decode()})
+  
   return output, 202
 
 if __name__ == '__main__':
