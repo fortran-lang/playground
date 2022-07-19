@@ -11,10 +11,16 @@ cors = CORS(app)
 
 app.config['CORS_HEADERS'] = 'Content-Type'
 
+#Starting container
+client = docker.from_env()
+container = client.containers.run('playground-small', tty=True,detach=True)
+
 #Editing the file with code inside editor
-def edit_file(code):
+def edit_file(code, input=''):
   Fortran_file = open('./File.f90','w+')
   Fortran_file.write(code)
+  program_input = open('./program_input.txt', 'w+')
+  program_input.write(input)
 
 
 
@@ -37,12 +43,10 @@ def copy_to(src, dst, container):
 
 #Executing code inside container and getting it's output
 def execute_code_in_container():
-  client = docker.from_env()
-  container = client.containers.run('playground-small', tty=True,detach=True)
   copy_to('./File.f90', '/fortran/File.f90',container)
-  container.exec_run('gfortran File.f90 -o executed_file.o',demux=True)
-  a = container.exec_run('./executed_file.o')
-  container.stop()
+  copy_to('./program_input.txt', '/fortran/program_input.txt',container)
+  container.exec_run('gfortran File.f90 -o executed_file.o')
+  a = container.exec_run('sh -c "cat program_input.txt | ./executed_file.o"')
   return a
     
 
@@ -51,8 +55,9 @@ def execute_code_in_container():
 @cross_origin()
 def run_code():
   data = request.get_json()
-  edit_file(data["code"])
+  edit_file(data["code"],data["programInput"])
   code_result = execute_code_in_container()
+  print(code_result.output.decode())
   output = jsonify({"executed" : code_result.output.decode()})
   return output, 202
 
