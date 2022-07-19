@@ -9,6 +9,10 @@
   height: 35rem;
   width: 40%;
   border: 2px solid black;
+  padding: 0.2rem;
+  display:  flex;
+  flex-direction: column;
+  justify-content: space-between;
   
 }
 
