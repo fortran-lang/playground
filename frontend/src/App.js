@@ -10,11 +10,28 @@ import Spinner from 'react-bootstrap/Spinner'
 import Card from 'react-bootstrap/Card'
 import RunCode from './run.png'
 import ResetCode from './reset.png'
+import InputBox from './InputBox';
+
+
+function NewlineText(props) {
+  const text = props.text;
+  return <div className='output-formmating'>{text}</div>;
+}
+
 
 function App() {
   const [ text, setText ] = useState('') //State to store editor code
   const [output, setOutput] = useState('')//State to store output
   const [isLoading, setIsLoading] = useState(false);//Loading animations
+  const [ input, setInput ] = useState('')
+
+  
+  const handleInputChange = (e) => {
+    e.preventDefault(); // prevent the default action
+    setInput(e.target.value); // set name to e.target.value (event)
+    console.log(input)
+  };
+
 
   //POST request to Flask server
   const handleClick = async () => {
@@ -22,10 +39,9 @@ function App() {
     setOutput('')
     setIsLoading(true);
       // POST request using axios inside useEffect React hook
-            await axios.post('http://127.0.0.1:5000/run', {code : text})
+            await axios.post('http://127.0.0.1:5000/run', {code : text, programInput: input})
           .then((response) => {setOutput(response.data.executed)});
           setIsLoading(false);
-    console.log(output)
   }
 
   const resetCode = () => {
@@ -40,6 +56,7 @@ function App() {
       <div className='code-wrapper'>
       {/*Editor Component*/}
       <Editor value={text} onChange={value => setText(value)}/>
+      
       {/* Buttons */}
       <div className='options'><Button onClick={resetCode} ><img src={ResetCode} /></Button>
       <Button variant="run" onClick={handleClick}><img src={RunCode} /></Button>
@@ -69,13 +86,17 @@ function App() {
             <Card.Body>
               
               <Card.Text>
+                {/* Spinning Animation While Request is processed */}
               {isLoading ? <p className='loading'><Spinner animation="border" size="sm" /></p> : null}
-                {output}
+                <NewlineText text={output} />
               </Card.Text>
              
             </Card.Body>
           </Card>
+          {/* Input Box to provide input for program */}
+          <InputBox value={input} onChange={handleInputChange}/>
       </div>
+      
       </div>
     </div>
   );
