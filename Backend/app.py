@@ -13,7 +13,7 @@ app.config["CORS_HEADERS"] = "Content-Type"
 
 # Starting container
 client = docker.from_env()
-container = client.containers.run("playground-small", tty=True, detach=True)
+container = client.containers.run("playground-small", tty=True, detach=True, network_disabled=True, mem_limit="16g")
 
 # Editing the file with code inside editor
 def edit_file(code, input=""):
@@ -49,7 +49,7 @@ def execute_code_in_container():
     )
     if executable.exit_code == 0:
         a = container.exec_run(
-            'sh -c "cat program_input.txt | ./executed_file.o"', demux=True
+            'sh -c "cat program_input.txt | timeout 15s ./executed_file.o"', demux=True
         )
     else:
         a = executable
