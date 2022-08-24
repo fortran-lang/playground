@@ -4,7 +4,8 @@ from flask_cors import CORS, cross_origin
 import docker
 import os
 import tarfile
-
+import yaml
+import json
 app = Flask(__name__)
 
 cors = CORS(app)
@@ -15,13 +16,22 @@ app.config["CORS_HEADERS"] = "Content-Type"
 client = docker.from_env()
 container = client.containers.run("playground-small", tty=True, detach=True, network_disabled=True, mem_limit="16g")
 
+#Converting tutorial YAML
+with open('tutorial.yml', 'r') as file:
+    configuration = yaml.safe_load(file)
+
+with open('../frontend/src/tutorial.json', 'w+') as json_file:
+    json.dump(configuration, json_file)
+
+
 # Editing the file with code inside editor
 def edit_file(code, input=""):
     Fortran_file = open("./File.f90", "w+")
     Fortran_file.write(code)
+    Fortran_file.close()
     program_input = open("./program_input.txt", "w+")
     program_input.write(input)
-
+    program_input.close()
 
 # Copying file with fortran code to container
 def copy_to(src, dst, container):
