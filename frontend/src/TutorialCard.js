@@ -4,6 +4,13 @@ import Tutorial from './tutorial.json'
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button'
 
+
+function NewlineText(props) {
+  const text = props.text;
+  return <div className='output-formmating'>{text}</div>;
+}
+
+
 function TutorialCard(props) {
   
   const [exercise, setExercise] = useState(0)
@@ -18,7 +25,7 @@ function TutorialCard(props) {
     }
   }
   return (
-    <Card style={{ width: '100%', height: '100%' }}>
+    <Card style={{ width: '100%', height: '100%' }} className="overflow-auto">
       
       <Card.Body>
         <Card.Title>{Tutorial[exercise].title}</Card.Title>
@@ -30,7 +37,8 @@ function TutorialCard(props) {
                   width={"100%"}/> 
         <Card.Text>
           
-          {Tutorial[exercise].content}
+          
+          <NewlineText text={Tutorial[exercise].content} />
         </Card.Text>
         
         <Button onClick={goLeft} >Prev</Button>&nbsp;
