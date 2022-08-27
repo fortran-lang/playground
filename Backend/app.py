@@ -74,6 +74,10 @@ def run_code():
     edit_file(data["code"], data["programInput"])
     code_result = execute_code_in_container()
     if code_result.exit_code == 0:
+        if code_result.output[0] == None:
+            output = jsonify({"executed": ""})
+            return output, 202
+
         print(code_result.output[0].decode())
         output = jsonify({"executed": code_result.output[0].decode()})
     else:
