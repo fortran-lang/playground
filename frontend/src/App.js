@@ -11,7 +11,7 @@ import Card from 'react-bootstrap/Card'
 import RunCode from './run.png'
 import ResetCode from './reset.png'
 import InputBox from './InputBox';
-
+import TutorialCard from './TutorialCard';
 
 function NewlineText(props) {
   const text = props.text;
@@ -24,6 +24,7 @@ function App() {
   const [output, setOutput] = useState('')//State to store output
   const [isLoading, setIsLoading] = useState(false);//Loading animations
   const [ input, setInput ] = useState('')
+  const [inputOn, setinputOn] = useState(false)
 
   
   const handleInputChange = (e) => {
@@ -32,7 +33,10 @@ function App() {
     console.log(input)
   };
 
-
+  const handleInputBox = (e) =>{
+    {inputOn ? setinputOn(false) : setinputOn(true)}
+    //setinputOn(true)
+  }
   //POST request to Flask server
   const handleClick = async () => {
     
@@ -55,7 +59,7 @@ function App() {
       <div style={{paddingBottom: "0.5rem"}}><Navigationbar/></div> 
       <div className='code-wrapper'>
       {/*Editor Component*/}
-      <Editor value={text} onChange={value => setText(value)}/>
+      <Editor value={text} height={""} width={"50%"} onChange={value => setText(value)}/>
       
       {/* Buttons */}
       <div className='options'><Button onClick={resetCode} ><img src={ResetCode} /></Button>
@@ -81,7 +85,7 @@ function App() {
       {/*Card component to display output*/}
       <div className='terminal'>
         
-          <Card style={{width:'100%'}}>
+          <Card style={{width:'100%'}} className="overflow-auto">
             <Card.Header>Terminal</Card.Header>
             <Card.Body>
               
@@ -93,8 +97,13 @@ function App() {
              
             </Card.Body>
           </Card>
+
+          <TutorialCard />
           {/* Input Box to provide input for program */}
-          <InputBox value={input} onChange={handleInputChange}/>
+          {/*<InputBox value={input} onChange={handleInputChange}/> */}
+          <Button onClick={handleInputBox}>INPUT</Button>
+          {inputOn ? <InputBox value={input} onChange={handleInputChange}/> : null}
+          
       </div>
       
       </div>
