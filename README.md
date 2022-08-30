@@ -6,7 +6,7 @@ An interactive Fortran playground
 # Flask API
 1. Install Docker
 2. Build docker image (Switch to docker directory)
-``` docker build -t playground-small .``` 
+``` docker build -t playground-fpm .``` 
 3. Install pipenv to manage packages 
 ```pip install pipenv```
 4. Switch to backend directory and 
