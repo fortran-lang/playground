@@ -1,0 +1,15 @@
+name = "playground"
+author = "Ashirwad Mishra"
+maintainer = "ashirwad.golu@gmail.com"
+[build]
+auto-executables = true
+auto-tests = true
+auto-examples = true
+[install]
+library = false
+[dependencies]
+stdlib.git = "https://github.com/fortran-lang/stdlib"
+stdlib.branch = "stdlib-fpm"
+
+
+
