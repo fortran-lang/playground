@@ -8,5 +8,6 @@ flask = "*"
 docker = "*"
 flask-cors = "*"
 pyyaml = "*"
+tomlkit = "*"
 
 [dev-packages]

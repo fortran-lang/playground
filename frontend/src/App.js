@@ -12,19 +12,44 @@ import RunCode from './run.png'
 import ResetCode from './reset.png'
 import InputBox from './InputBox';
 import TutorialCard from './TutorialCard';
+import Modal from 'react-bootstrap/Modal';
+import Form from 'react-bootstrap/Form';
+
 
 function NewlineText(props) {
   const text = props.text;
   return <div className='output-formmating'>{text}</div>;
 }
 
+var libs = []
 
 function App() {
   const [ text, setText ] = useState('') //State to store editor code
   const [output, setOutput] = useState('')//State to store output
   const [isLoading, setIsLoading] = useState(false);//Loading animations
-  const [ input, setInput ] = useState('')
-  const [inputOn, setinputOn] = useState(false)
+  const [ input, setInput ] = useState('') // user input
+  const [inputOn, setinputOn] = useState(false) // toggle for input button
+  const [show, setShow] = useState(false); // library modal toggle
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const [stdlibOn, setstdlibOn] = useState(false); // state to store package info
+
+  {/*switch toggle for stdlib */}
+  const onSwitchAction = () => {
+    setstdlibOn(!stdlibOn);
+    if(!stdlibOn){
+      libs.push("stdlib")
+    }
+    else{
+      if(libs.includes("stdlib")){
+        libs = libs.filter(item => item !== "stdlib")
+
+      }
+    }
+
+  };
+  
+
 
   
   const handleInputChange = (e) => {
@@ -33,6 +58,7 @@ function App() {
     console.log(input)
   };
 
+  //inputbox toggle
   const handleInputBox = (e) =>{
     {inputOn ? setinputOn(false) : setinputOn(true)}
     //setinputOn(true)
@@ -43,11 +69,12 @@ function App() {
     setOutput('')
     setIsLoading(true);
       // POST request using axios inside useEffect React hook
-            await axios.post('http://127.0.0.1:5000/run', {code : text, programInput: input})
+            await axios.post('http://127.0.0.1:5000/run', {code : text, programInput: input, libs: libs})
           .then((response) => {setOutput(response.data.executed)});
           setIsLoading(false);
   }
 
+    //reset code button
   const resetCode = () => {
     setText("")
   }
@@ -77,6 +104,10 @@ function App() {
           background-color: #009900;
           color: white;
         }
+        .btn-run:focus{
+          background-color: #734f96;
+          color: white;
+        }
         `}
         </style>
         
@@ -98,12 +129,45 @@ function App() {
             </Card.Body>
           </Card>
 
+
+          {/*Tutorial Card Component */}
           <TutorialCard />
           {/* Input Box to provide input for program */}
-          {/*<InputBox value={input} onChange={handleInputChange}/> */}
-          <Button onClick={handleInputBox}>INPUT</Button>
-          {inputOn ? <InputBox value={input} onChange={handleInputChange}/> : null}
-          
+          <div>
+          <Button onClick={handleInputBox}>Input</Button>
+          {inputOn ? <InputBox value={input} onChange={handleInputChange}/> : null} {/*toggle for input */}
+
+                
+            <Button variant="primary" onClick={handleShow}>
+              Libraries
+            </Button>
+          {/*Library selector pop-up modal */}
+            <Modal show={show} onHide={handleClose}>
+              <Modal.Header closeButton>
+                <Modal.Title>Packages</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>Please select the packages you want
+                    <Form>
+                            <Form.Check 
+                              type="switch"
+                              id="custom-switch"
+                              label="stdlib"
+                              onChange={onSwitchAction}
+                              checked={stdlibOn}
+                            />
+                    </Form>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                  Close
+                </Button>
+                <Button variant="primary" onClick={handleClose}>
+                  Save Changes
+                </Button>
+              </Modal.Footer>
+            </Modal>
+          </div>
+
       </div>
       
       </div>

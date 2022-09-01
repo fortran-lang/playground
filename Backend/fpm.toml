@@ -1,0 +1,13 @@
+name = "playground"
+author = "Ashirwad Mishra"
+maintainer = "ashirwad.golu@gmail.com"
+
+[build]
+auto-executables = true
+auto-tests = true
+auto-examples = true
+
+[install]
+library = false
+
+[dependencies]
