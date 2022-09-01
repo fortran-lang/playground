@@ -25,7 +25,7 @@ function TutorialCard(props) {
     }
   }
   return (
-    <Card style={{ width: '100%', height: '100%' }} className="overflow-auto">
+    <Card style={{ width: '100%', height: '50%' }} className="overflow-auto">
       
       <Card.Body>
         <Card.Title>{Tutorial[exercise].title}</Card.Title>
