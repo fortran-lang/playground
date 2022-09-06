@@ -80,7 +80,11 @@ def run_code():
     edit_file(data["code"], data["programInput"], data["libs"])
     code_result = execute_code_in_container()
     if code_result.output[0] == None:
+        print(code_result.output)
         output = jsonify({"executed": ""})
+        if '<ERROR>' in code_result.output[1].decode():
+            output = jsonify({"executed" : code_result.output[1].decode()})
+        
         return output, 202
     output = jsonify({"executed": code_result.output[0].decode()})
     print(code_result.output)
