@@ -10,6 +10,7 @@ import Spinner from 'react-bootstrap/Spinner'
 import Card from 'react-bootstrap/Card'
 import RunCode from './run.png'
 import ResetCode from './reset.png'
+import Librarylogo from './libs.png'
 import InputBox from './InputBox';
 import TutorialCard from './TutorialCard';
 import Modal from 'react-bootstrap/Modal';
@@ -115,8 +116,11 @@ const tutfunc = (TutorialCode) =>{
       <Editor value={text} height={""} width={"50%"} onChange={value => setText(value)}/>
       
       {/* Buttons */}
-      <div className='options'><Button onClick={resetCode} ><img alt="reset button"  src={ResetCode} /></Button>
-      <Button variant="run" onClick={handleClick}><img alt="run button" src={RunCode} /></Button>
+      <div className='options'>
+        
+        <Button className="selector" onClick={resetCode} ><img alt="reset button"  src={ResetCode} /></Button>
+        <Button className="selector" variant="lib" onClick={handleShow}><img alt="libs button"  src={Librarylogo} /></Button>
+        <Button className="selector" variant="run" onClick={handleClick}><img alt="run button" src={RunCode} /></Button>
       </div>
       <div className='run-button'>
         {/*Custom theming for bootstrap buttons*/}
@@ -132,6 +136,18 @@ const tutfunc = (TutorialCode) =>{
         }
         .btn-run:focus{
           background-color: #734f96;
+          color: white;
+        }
+        .btn-lib{
+          background-color: #FF8E00;
+          color: white;
+        }
+        .btn-lib:hover{
+          background-color: #FF8E00;
+          color: white;
+        }
+        .btn-lib:focus{
+          background-color: #ed8502;
           color: white;
         }
         `}
@@ -154,8 +170,8 @@ const tutfunc = (TutorialCode) =>{
              
             </Card.Body>
           </Card>
-
-
+          <Button onClick={handleInputBox}>Custom Input</Button>
+          
           {/*Tutorial Card Component */}
           {showTutorial
            ? <>
@@ -169,9 +185,11 @@ const tutfunc = (TutorialCode) =>{
            <Card.Title style={{padding: '0.4em'}}>Welcome to the Fortran Playground</Card.Title>
            <Card.Body>
               <p>Use the editor on the left to type your code,
-               you can select your libraries and provide custom input for your code</p> 
+               you can select your <span style={{color: "#FF8E00", fontWeight: "bold" }}>libraries </span>
+                and provide <span style={{color: "#0d6efd", fontWeight: "bold" }}>custom input</span> for your code
+                using the respective buttons.</p> 
                <p>New to Fortran?
-                 <p>Try our new Quickstart Tutorial</p>
+                 <p>Try our Quickstart Tutorial</p>
                  <Button onClick={startTutorial}>Start</Button>
                </p>
           </Card.Body>
@@ -181,13 +199,11 @@ const tutfunc = (TutorialCode) =>{
           
           {/* Input Box to provide input for program */}
           <div>
-          <Button onClick={handleInputBox}>Input</Button>
+          
           {inputOn ? <InputBox value={input} onChange={handleInputChange}/> : null} {/*toggle for input */}
 
                 
-            <Button variant="primary" onClick={handleShow}>
-              Libraries
-            </Button>
+          
             
           {/*Library selector pop-up modal */}
             <Modal show={show} onHide={handleClose}>

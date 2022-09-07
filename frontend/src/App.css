@@ -37,7 +37,10 @@
 }
 
 .options{
+
   display: flex;
+  flex-direction: column;
+  width: 4em;
   
 }
 
@@ -49,4 +52,14 @@
 .tutButton {
   display: flex;
   justify-content: space-between;
+}
+
+.selector{
+  display: flex;
+  align-items: center;
+  margin: 2px;
+}
+
+.cslib{
+  background-color: red;
 }

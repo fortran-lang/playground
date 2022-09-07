@@ -22,5 +22,6 @@ export default function Editor(props){
     readOnly={props.snippet}
     showGutter={props.gutter}
     highlightActiveLine={props.highlight}
+    fontSize={14}
   />)
 }
