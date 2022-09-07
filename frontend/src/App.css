@@ -45,3 +45,8 @@
   white-space: pre-wrap;
 
 }
+
+.tutButton {
+  display: flex;
+  justify-content: space-between;
+}

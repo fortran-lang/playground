@@ -19,8 +19,16 @@ export default function Navigationbar(){
             Fortran Playground
             </Navbar.Brand>
             </Container>
-            <Nav.Link href="https://fortran-lang.org/learn/" target="_blank" rel="noopener noreferrer" ><span className="linkText">Learn</span></Nav.Link>&nbsp;
-        <Nav.Link href="https://fortran-lang.org/" target="_blank" rel="noopener noreferrer" ><span className="linkText">Home</span></Nav.Link>&nbsp;
+            <Nav.Link href="https://fortran-lang.org/learn/" target="_blank" rel="noopener noreferrer" >
+                <span className="linkText">Learn</span>
+            </Nav.Link>&nbsp;
+            <Nav.Link href="https://fortran-lang.org/" target="_blank" rel="noopener noreferrer" >
+                <span className="linkText">Home</span>
+            </Nav.Link>&nbsp;
+            <Nav.Link href="https://github.com/fortran-lang/playground" target="_blank" rel="noopener noreferrer" ><
+                span className="linkText">Github</span>
+            </Nav.Link>&nbsp;&nbsp;&nbsp;
+
         </Navbar>
         
         
