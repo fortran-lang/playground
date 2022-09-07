@@ -41,15 +41,15 @@ When ready, type:
 
 ```
 cd backend/Docker
-docker build -t playground-f .
+docker build -t playground-prod .
 ```
 
 To confirm that it worked, type `docker images` and you should see
-`playground-f` in the list of images under the `REPOSITORY` column, for example:
+`playground-prod` in the list of images under the `REPOSITORY` column, for example:
 
 ```
 REPOSITORY     TAG       IMAGE ID       CREATED         SIZE
-playground-f   latest    8c2439e40e81   1 hour ago      201MB
+playground-prod   latest    8c2439e40e81   1 hour ago      201MB
 ```
 
 Now move one directory up where we will set up the Python environment and the
@@ -95,7 +95,11 @@ curl \
   --location \
   --request POST '127.0.0.1:5000/run' \
   --header 'Content-Type: application/json' \
-  --data-raw '{"code": "program hello\nprint *, \"Hello World New Line\"\nprint *, \"Hello Mars\"\nend program hello", "programInput": "", "libs": ""}'
+  --data-raw '{
+    "code": "program hello\r\n  ! This is a comment line; it is ignored by the compiler\r\n  print *, 'Hello, World!'\r\nend program hello\r\n",
+    "programInput": "",
+    "libs" : []
+}'
 ```
 
 If everything is set up correctly so far, you should get the following response:
@@ -133,3 +137,85 @@ playground.
 
 Please report any issues or suggestions for improvement by opening a
 [new GitHub issue](https://github.com/fortran-lang/playground/issues/new).
+
+## Production Guide
+This is a setup guide to host the server on AWS EC2. It's assuming you already have an account setup and know about free tier limitations.
+#### Setting up EC2 
+1.  Select the EC2 Launch Instance Wizard choose Ubuntu(22.04 x86) as your OS under AMI section. 
+2. Choose t2.micro instance if you want to stay within free tier or your preferred instance type and head to  the next section.  Keep configuration as default.
+3.  Select the storage you need, 20 GBs should be more than enough and it'll still stay under free tier. Go to next step and leave tags as default.
+4. Configure the security group as follows:
+![security group](https://imgur.com/a/zGTCN6F)
+5.  Click next to choose your key pair.(You'll be connecting to SSH via this key so keep it safe, if you don't have one already generate a new one)
+
+Now, we need to attach an Elastic IP to this instance, as instances are allocated only a dynamic IP, also free tier only allows 1 hour of use without  an elastic IP. 
+
+1. Select Elastic IP in the navigation pane, and generate a new Elastic IP.
+2. Associate this Elastic IP to the instance you've just created.
+3. Go to your instance and copy this Elastic IP(you'll see it listed under the v4 IP address)
+
+#### Setting up the EC2 instance
+1. Locate your key.pem file you generated in step 5 and connect to your server by using SSH:
+```
+sudo ssh -i <pem file> ubuntu@<Public IP of the EC2 instance>
+```
+2.  Update your instance
+```sudo apt-get update```
+3.  Install pip
+```sudo apt install python3-pip```
+4.  Install nginx
+`sudo apt-get install nginx`
+5 Install node.js and npm using nvm.
+Get NVM
+``curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash`
+``
+Activate nvm
+`. ~/.nvm/nvm.sh`
+Install node
+`nvm install --lts`
+
+####  Setting up the playground on VM
+1.  Clone the repository
+`git clone https://github.com/fortran-lang/playground.git`
+2.  Assign all read and write permissions to the project directory
+```sudo chmod 777 playground```
+```cd playground```
+3.  Go to frontend directory`cd playground/frontend`, before we build a production version we need to replace our API calls with the public IP.
+	a. Open App.js file which has our API call:
+	`sudo nano playground/frontend/src/App.js`
+	b. Replace the http://127.0.0.1:5000 url with http://{your public ip}:5000
+
+4. Install modules `npm install`, create a build from those modules `npm run build`
+4. Create a directory for the frontend with the following command:
+`sudo mkdir /var/www/html/react`
+Next, copy all contents from the build directory to the react directory:
+`sudo cp -r /home/ubuntu/playground/frontend/build/* /var/www/html/react/`
+
+5.  To go on, set proper ownership of the react directory with the following command:
+`sudo chown -R www-data:www-data /var/www/html/react`
+6. Next, create an Nginx virtual host configuration file to host your React app.
+`nano /etc/nginx/conf.d/react.conf`
+add this to the file:
+`server {
+         listen 80;
+         listen [::]:80;
+         root /var/www/html/react/;
+         index index.html index.htm;
+         # MODIFY SERVER_NAME EXAMPLE
+         location / {
+              try_files $uri $uri/ =404;
+         }
+}`
+7. Restart nginx
+`systemctl restart nginx`
+
+####Setting up Docker
+Refer this link for [setting up docker](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository "setting up docker") (setup via repository).
+
+#### Setting up the backend server
+1.  Go to the backend folder `cd playground/backend`
+2. Make a directory for virtual environment(this will be useful when setting up the service) using `mkdir .venv` and install all required modules using `pipenv install` 
+3. Start the server using:
+```sudo pipenv run gunicorn --bind 0.0.0.0:5000 wsgi:app```
+
+You'll now be able to use the app. You should also setup a service for the gunicorn server so that it starts automatically when the server boots. 
