@@ -9,5 +9,6 @@ docker = "*"
 flask-cors = "*"
 pyyaml = "*"
 tomlkit = "*"
+gunicorn = "*"
 
 [dev-packages]
