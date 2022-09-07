@@ -25,3 +25,8 @@ RUN git clone https://github.com/fortran-lang/stdlib.git
 WORKDIR /fortran/playground/libraries/stdlib
 RUN git checkout stdlib-fpm
 WORKDIR /fortran/playground
+COPY fpm.toml /fortran/playground/fpm.toml
+COPY main.f90 /fortran/playground/app/main.f90
+RUN /fortran/fpm build
+
+
