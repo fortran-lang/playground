@@ -16,7 +16,7 @@ app.config["CORS_HEADERS"] = "Content-Type"
 
 # Starting container
 client = docker.from_env()
-container = client.containers.run("playground-f", tty=True, detach=True, network_disabled=True, mem_limit="16g")
+container = client.containers.run("playground-prod", tty=True, detach=True, network_disabled=True)
 
 #Converting tutorial YAML
 with open('tutorial.yml', 'r') as file:
@@ -80,7 +80,11 @@ def run_code():
     edit_file(data["code"], data["programInput"], data["libs"])
     code_result = execute_code_in_container()
     if code_result.output[0] == None:
+        print(code_result.output)
         output = jsonify({"executed": ""})
+        if '<ERROR>' in code_result.output[1].decode():
+            output = jsonify({"executed" : code_result.output[1].decode()})
+        
         return output, 202
     output = jsonify({"executed": code_result.output[0].decode()})
     print(code_result.output)
@@ -90,4 +94,4 @@ def run_code():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0')

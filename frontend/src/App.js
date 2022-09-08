@@ -10,12 +10,14 @@ import Spinner from 'react-bootstrap/Spinner'
 import Card from 'react-bootstrap/Card'
 import RunCode from './run.png'
 import ResetCode from './reset.png'
+import Librarylogo from './libs.png'
 import InputBox from './InputBox';
 import TutorialCard from './TutorialCard';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
+import Tutorial from './tutorial.json' //Tutorial JSON
 
-
+//Function to push \n in string to new lines
 function NewlineText(props) {
   const text = props.text;
   return <div className='output-formmating'>{text}</div>;
@@ -33,6 +35,25 @@ function App() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [stdlibOn, setstdlibOn] = useState(false); // state to store package info
+  const [exercise, setExercise] = useState(0) // Tutorial Exercise
+  const [showTutorial, setshowTutorial] = useState(false)
+
+  {/*Handling Tutorial Buttons */}
+  const goRight = () => {
+    if(exercise<Tutorial.length - 1){
+    setExercise(exercise + 1)
+    }
+      
+      tutfunc(Tutorial[exercise+1].code)
+      
+  }
+  const goLeft = () => {
+    if(exercise>0){
+        setExercise(exercise - 1)
+    }
+    tutfunc(Tutorial[exercise-1].code)
+  }
+
 
   {/*switch toggle for stdlib */}
   const onSwitchAction = () => {
@@ -49,9 +70,15 @@ function App() {
 
   };
   
-
-
-  
+//Changing code inside editor for tutorial
+const tutfunc = (TutorialCode) =>{
+  setText(TutorialCode)
+}
+  //Tutorial Prompt
+  const startTutorial= () => {
+    setshowTutorial(true)
+    tutfunc(Tutorial[exercise].code)
+  }
   const handleInputChange = (e) => {
     e.preventDefault(); // prevent the default action
     setInput(e.target.value); // set name to e.target.value (event)
@@ -89,8 +116,11 @@ function App() {
       <Editor value={text} height={""} width={"50%"} onChange={value => setText(value)}/>
       
       {/* Buttons */}
-      <div className='options'><Button onClick={resetCode} ><img src={ResetCode} /></Button>
-      <Button variant="run" onClick={handleClick}><img src={RunCode} /></Button>
+      <div className='options'>
+        
+        <Button title="Reset Editor" className="selector" onClick={resetCode} ><img alt="reset button"  src={ResetCode} /></Button>
+        <Button title="Libraries" className="selector" variant="lib" onClick={handleShow}><img alt="libs button"  src={Librarylogo} /></Button>
+        <Button title="Run" className="selector" variant="run" onClick={handleClick}><img alt="run button" src={RunCode} /></Button>
       </div>
       <div className='run-button'>
         {/*Custom theming for bootstrap buttons*/}
@@ -101,11 +131,23 @@ function App() {
           color: white;
         }
         .btn-run:hover{
-          background-color: #009900;
+          background-color: #009900 !important;
           color: white;
         }
-        .btn-run:focus{
+        .btn-run:active:focus{
           background-color: #734f96;
+          color: white;
+        }
+        .btn-lib{
+          background-color: #FF8E00;
+          color: white;
+        }
+        .btn-lib:hover{
+          background-color: #FF8E00 !important;
+          color: white;
+        }
+        .btn-lib:active:focus{
+          background-color: #ed8502;
           color: white;
         }
         `}
@@ -117,7 +159,7 @@ function App() {
       <div className='terminal'>
         
           <Card style={{width:'100%'}} className="overflow-auto">
-            <Card.Header>Terminal</Card.Header>
+            <Card.Header>Output</Card.Header>
             <Card.Body>
               
               <Card.Text>
@@ -128,19 +170,41 @@ function App() {
              
             </Card.Body>
           </Card>
-
-
+          
+          
           {/*Tutorial Card Component */}
-          <TutorialCard />
+          {showTutorial
+           ? <>
+           <TutorialCard title={Tutorial[exercise].title} content={Tutorial[exercise].content} /> 
+           <div className='tutButton'><Button onClick={goLeft} >Prev</Button>&nbsp;
+           <Button onClick={goRight}>Next</Button></div>
+            </>
+          
+           : 
+           <Card>
+           <Card.Title style={{padding: '0.4em'}}>Welcome to the Fortran Playground</Card.Title>
+           <Card.Body>
+              <p>Use the editor on the left to type your code,
+               you can select your <span style={{color: "#FF8E00", fontWeight: "bold" }}>libraries </span>
+                and provide <span style={{color: "#0d6efd", fontWeight: "bold" }}>custom input</span> for your code
+                using the respective buttons.</p> 
+               <p>New to Fortran?
+                 <p>Try our Quickstart Tutorial</p>
+                 <Button onClick={startTutorial}>Start</Button>
+               </p>
+          </Card.Body>
+         </Card>
+           
+          }     
+          
           {/* Input Box to provide input for program */}
-          <div>
-          <Button onClick={handleInputBox}>Input</Button>
+          <br/>
+          <Button onClick={handleInputBox}>User Input</Button>
           {inputOn ? <InputBox value={input} onChange={handleInputChange}/> : null} {/*toggle for input */}
 
                 
-            <Button variant="primary" onClick={handleShow}>
-              Libraries
-            </Button>
+          
+            
           {/*Library selector pop-up modal */}
             <Modal show={show} onHide={handleClose}>
               <Modal.Header closeButton>
@@ -167,8 +231,8 @@ function App() {
               </Modal.Footer>
             </Modal>
           </div>
-
-      </div>
+          
+      
       
       </div>
     </div>

@@ -37,7 +37,10 @@
 }
 
 .options{
+
   display: flex;
+  flex-direction: column;
+  width: 4em;
   
 }
 
@@ -45,3 +48,15 @@
   white-space: pre-wrap;
 
 }
+
+.tutButton {
+  display: flex;
+  justify-content: space-between;
+}
+
+.selector{
+  display: flex;
+  align-items: center;
+  margin: 2px;
+}
+
