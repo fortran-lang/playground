@@ -118,9 +118,9 @@ const tutfunc = (TutorialCode) =>{
       {/* Buttons */}
       <div className='options'>
         
-        <Button className="selector" onClick={resetCode} ><img alt="reset button"  src={ResetCode} /></Button>
-        <Button className="selector" variant="lib" onClick={handleShow}><img alt="libs button"  src={Librarylogo} /></Button>
-        <Button className="selector" variant="run" onClick={handleClick}><img alt="run button" src={RunCode} /></Button>
+        <Button title="Reset Editor" className="selector" onClick={resetCode} ><img alt="reset button"  src={ResetCode} /></Button>
+        <Button title="Libraries" className="selector" variant="lib" onClick={handleShow}><img alt="libs button"  src={Librarylogo} /></Button>
+        <Button title="Run" className="selector" variant="run" onClick={handleClick}><img alt="run button" src={RunCode} /></Button>
       </div>
       <div className='run-button'>
         {/*Custom theming for bootstrap buttons*/}
@@ -131,10 +131,10 @@ const tutfunc = (TutorialCode) =>{
           color: white;
         }
         .btn-run:hover{
-          background-color: #009900;
+          background-color: #009900 !important;
           color: white;
         }
-        .btn-run:focus{
+        .btn-run:active:focus{
           background-color: #734f96;
           color: white;
         }
@@ -143,10 +143,10 @@ const tutfunc = (TutorialCode) =>{
           color: white;
         }
         .btn-lib:hover{
-          background-color: #FF8E00;
+          background-color: #FF8E00 !important;
           color: white;
         }
-        .btn-lib:focus{
+        .btn-lib:active:focus{
           background-color: #ed8502;
           color: white;
         }
@@ -159,7 +159,7 @@ const tutfunc = (TutorialCode) =>{
       <div className='terminal'>
         
           <Card style={{width:'100%'}} className="overflow-auto">
-            <Card.Header>Terminal</Card.Header>
+            <Card.Header>Output</Card.Header>
             <Card.Body>
               
               <Card.Text>
@@ -170,7 +170,7 @@ const tutfunc = (TutorialCode) =>{
              
             </Card.Body>
           </Card>
-          <Button onClick={handleInputBox}>Custom Input</Button>
+          
           
           {/*Tutorial Card Component */}
           {showTutorial
@@ -198,8 +198,8 @@ const tutfunc = (TutorialCode) =>{
           }     
           
           {/* Input Box to provide input for program */}
-          <div>
-          
+          <br/>
+          <Button onClick={handleInputBox}>User Input</Button>
           {inputOn ? <InputBox value={input} onChange={handleInputChange}/> : null} {/*toggle for input */}
 
                 
@@ -232,7 +232,7 @@ const tutfunc = (TutorialCode) =>{
             </Modal>
           </div>
           
-      </div>
+      
       
       </div>
     </div>
