@@ -211,11 +211,40 @@ add this to the file:
 
 ####Setting up Docker
 Refer this link for [setting up docker](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository "setting up docker") (setup via repository).
+After successfully installing docker switch to the Docker directory `cd playground/backend/docker`
+and build the docker image `sudo docker build -t playground-prod .` .
 
 #### Setting up the backend server
-1.  Go to the backend folder `cd playground/backend`
-2. Make a directory for virtual environment(this will be useful when setting up the service) using `mkdir .venv` and install all required modules using `pipenv install` 
-3. Start the server using:
+1.  Go to the backend folder `cd playground/backend`.
+2. Install pipenv to install packages from the pipfile
+  `sudo pip install pipenv`
+3. Make a directory for virtual environment(this will be useful when setting up the service) using `mkdir .venv` and install all required modules using `pipenv install` 
+4. Start the server using:
 ```sudo pipenv run gunicorn --bind 0.0.0.0:5000 wsgi:app```
 
 You'll now be able to use the app. You should also setup a service for the gunicorn server so that it starts automatically when the server boots. 
+
+#### Setting up the service
+1. Create a service file for our app `sudo nano /etc/systemd/system/backend.service`
+2. Write the following configuration: 
+```
+[Unit]
+Description=Gunicorn instance to serve backend for playground
+After=network.target
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/playground/backend
+Environment="PATH=/home/ubuntu/playground/backend/.venv/bin"
+ExecStart=sudo /home/ubuntu/playground/backend/.venv/bin/gunicorn --workers 3 -b :5000 wsgi:app
+[Install]
+WantedBy=multi-user.target
+```
+Press Ctrl + X and save the file.
+3. Start the service using `sudo systemctl start backend`
+4. Then enable it so that it starts at boot:
+  `sudo systemctl enable myproject`
+
+Now, You'll can directly cater requests to the port and your app should work. I recommend using a 
+reverse proxy for your requests by altering the nginx configuration and adding an endpoint
+for the API.
