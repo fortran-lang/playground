@@ -1,0 +1,13 @@
+[Unit]
+Description=Fortran Playground server
+
+[Service]
+ExecStart=/home/ubuntu/playground/backend/.venv/bin/gunicorn --workers 3 --timeout 600 --reload --access-logfile access.log --log-file error.log --bind 0.0.0.0:5000 wsgi:app
+WorkingDirectory=/home/ubuntu/playground/backend
+Restart=always
+StandardOutput=file:/home/ubuntu/playground-server_stdout.log
+StandardError=file:/home/ubuntu/playground-server_stderr.log
+User=ubuntu
+
+[Install]
+WantedBy=multi-user.target
