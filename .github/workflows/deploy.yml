@@ -1,0 +1,37 @@
+name: Deploy frontend
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+
+      - name: Install dependencies 📦
+        run: npm install
+
+      - name: Build 🔨
+        run: |
+          npm run build
+          touch build/.nojekyll
+          echo $REACT_APP_PLAYGROUND_API_URL > build/CNAME
+        env:
+          REACT_APP_PLAYGROUND_API_URL: https://play-api.fortran-lang.org
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@4.4.0
+        with:
+          branch: gh-pages
+          folder: build
+          single-commit: true
