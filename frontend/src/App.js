@@ -97,7 +97,6 @@ const tutfunc = (TutorialCode) =>{
     setIsLoading(true);
 
     // POST request using axios inside useEffect React hook
-    console.log(process.env)
     await axios.post(`${process.env.REACT_APP_PLAYGROUND_API_URL}/run`, {code : text, programInput: input, libs: libs})
                .then((response) => {setOutput(response.data.executed)});
 
