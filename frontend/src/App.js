@@ -95,10 +95,13 @@ const tutfunc = (TutorialCode) =>{
     
     setOutput('')
     setIsLoading(true);
-      // POST request using axios inside useEffect React hook
-            await axios.post('http://127.0.0.1:5000/run', {code : text, programInput: input, libs: libs})
-          .then((response) => {setOutput(response.data.executed)});
-          setIsLoading(false);
+
+    // POST request using axios inside useEffect React hook
+    await axios.post(`${process.env.REACT_APP_PLAYGROUND_API_URL}/run`, {code : text, programInput: input, libs: libs})
+               .then((response) => {setOutput(response.data.executed)});
+
+    setIsLoading(false);
+
   }
 
     //reset code button
