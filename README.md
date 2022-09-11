@@ -126,7 +126,7 @@ npm install
 Run the server by typing:
 
 ```
-npm start
+REACT_APP_PLAYGROUND_API_URL=http://localhost:5000 npm start
 ```
 
 This should open the Fortran playground in your default web browser.
@@ -216,6 +216,15 @@ sudo ./initialize-services.sh
 
 which will copy the service files to `/etc/systemd/system`,
 start them, and enable them so they start on every boot.
+=======
+The `REACT_APP_PLAYGROUND_API_URL` must be set in the environment
+(or, alternatively, in the `.env` file in the `frontend/` directory)
+to the URL value of the Python backend server to use.
+For example, if you're running the Python backend server locally in development
+mode, set `REACT_APP_PLAYGROUND_API_URL` to `http://localhost:5000`.
+If deploying to production, `REACT_APP_PLAYGROUND_API_URL` should be set to
+`https://play-api.fortran-lang.org`.
+>>>>>>> main
 
 ## Reporting issues
 
