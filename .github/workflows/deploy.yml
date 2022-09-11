@@ -25,7 +25,7 @@ jobs:
         run: |
           npm run build
           touch build/.nojekyll
-          echo $REACT_APP_PLAYGROUND_API_URL > build/CNAME
+          echo play.fortran-lang.org > build/CNAME
         env:
           REACT_APP_PLAYGROUND_API_URL: https://play-api.fortran-lang.org
 
