@@ -19,9 +19,11 @@ jobs:
           node-version: 16.x
 
       - name: Install dependencies 📦
+        working-directory: ./frontend
         run: npm install
 
       - name: Build 🔨
+        working-directory: ./frontend
         run: |
           npm run build
           touch build/.nojekyll
