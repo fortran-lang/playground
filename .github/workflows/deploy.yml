@@ -19,9 +19,11 @@ jobs:
           node-version: 16.x
 
       - name: Install dependencies 📦
+        working-directory: ./frontend
         run: npm install
 
       - name: Build 🔨
+        working-directory: ./frontend
         run: |
           npm run build
           touch build/.nojekyll
@@ -33,5 +35,5 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4.4.0
         with:
           branch: gh-pages
-          folder: build
+          folder: ./frontend/build
           single-commit: true
