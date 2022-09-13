@@ -1,0 +1,14 @@
+[Unit]
+Description=Reverse proxy and SSL for the Fortran Playground server
+After=network.target
+
+[Service]
+ExecStart=/opt/caddy-2.5.2/bin/caddy reverse-proxy --from play-api.fortran-lang.org --to localhost:5000
+WorkingDirectory=/home/ubuntu
+StandardOutput=file:/home/ubuntu/playground-reverse-proxy_stdout.log
+StandardError=file:/home/ubuntu/playground-reverse-proxy_stderr.log
+Restart=always
+User=root
+
+[Install]
+WantedBy=multi-user.target

@@ -38,7 +38,7 @@ function App() {
   const [exercise, setExercise] = useState(0) // Tutorial Exercise
   const [showTutorial, setshowTutorial] = useState(false)
 
-  {/*Handling Tutorial Buttons */}
+  // Handle tutorial buttons
   const goRight = () => {
     if(exercise<Tutorial.length - 1){
     setExercise(exercise + 1)
@@ -55,7 +55,7 @@ function App() {
   }
 
 
-  {/*switch toggle for stdlib */}
+  // Switch toggle for stdlib
   const onSwitchAction = () => {
     setstdlibOn(!stdlibOn);
     if(!stdlibOn){
@@ -87,7 +87,7 @@ const tutfunc = (TutorialCode) =>{
 
   //inputbox toggle
   const handleInputBox = (e) =>{
-    {inputOn ? setinputOn(false) : setinputOn(true)}
+    inputOn ? setinputOn(false) : setinputOn(true)
     //setinputOn(true)
   }
   //POST request to Flask server
@@ -95,10 +95,13 @@ const tutfunc = (TutorialCode) =>{
     
     setOutput('')
     setIsLoading(true);
-      // POST request using axios inside useEffect React hook
-            await axios.post('http://127.0.0.1:5000/run', {code : text, programInput: input, libs: libs})
-          .then((response) => {setOutput(response.data.executed)});
-          setIsLoading(false);
+
+    // POST request using axios inside useEffect React hook
+    await axios.post(`${process.env.REACT_APP_PLAYGROUND_API_URL}/run`, {code : text, programInput: input, libs: libs})
+               .then((response) => {setOutput(response.data.executed)});
+
+    setIsLoading(false);
+
   }
 
     //reset code button
