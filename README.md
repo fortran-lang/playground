@@ -1,11 +1,12 @@
 # The Fortran Playground
 
 This is an interactive Fortran playground in the browser.
-It's main purpose is for newcomers to easily get a taste for the language
+Its main purpose is for newcomers to easily get a taste for the language
 and learn the essentials of Fortran programming.
 
 Follow the instructions below if you want to run the Fortran Playground server
 on your own computer.
+For the design of the software, see [this document](DESIGN.md).
 
 ## Getting started
 
@@ -96,7 +97,7 @@ curl \
   --request POST '127.0.0.1:5000/run' \
   --header 'Content-Type: application/json' \
   --data-raw '{
-    "code": "program hello\r\n  ! This is a comment line; it is ignored by the compiler\r\n  print *, 'Hello, World!'\r\nend program hello\r\n",
+    "code": "program hello\r\n  print *, 'Hello, World!'\r\nend program hello\r\n",
     "programInput": "",
     "libs" : []
 }'
@@ -105,7 +106,7 @@ curl \
 If everything is set up correctly so far, you should get the following response:
 
 ```
-{"executed":" Hello World New Line\n Hello Mars\n"}
+{"executed":" Hello, World!\n"}
 ```
 
 ### Set up the frontend server
