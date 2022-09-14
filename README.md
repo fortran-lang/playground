@@ -97,7 +97,7 @@ curl \
   --request POST '127.0.0.1:5000/run' \
   --header 'Content-Type: application/json' \
   --data-raw '{
-    "code": "program hello\r\n  print *, 'Hello, World!'\r\nend program hello\r\n",
+    "code": "program hello\r\n  print *, \"Hello, World!\"\r\nend program hello\r\n",
     "programInput": "",
     "libs" : []
 }'
