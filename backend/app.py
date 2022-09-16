@@ -16,7 +16,12 @@ app.config["CORS_HEADERS"] = "Content-Type"
 
 # Starting container
 client = docker.from_env()
-container = client.containers.run("playground-prod", tty=True, detach=True, network_disabled=True)
+container = client.containers.run(
+    "playground-prod",
+    tty=True,
+    detach=True,
+    network_disabled=True
+)
 
 #Converting tutorial YAML
 with open('tutorial.yml', 'r') as file:
@@ -63,11 +68,11 @@ def copy_to(src, dst, container):
 
 # Executing code inside container and getting it's output
 def execute_code_in_container():
-    copy_to('./main.f90', '/fortran/playground/app/main.f90', container)
-    copy_to('./program_input.txt', '/fortran/playground/program_input.txt', container)
-    copy_to('./fpm.toml','/fortran/playground/fpm.toml', container)
-    container.exec_run('sh -c "/fortran/fpm build"')
-    a = container.exec_run('sh -c "cat program_input.txt | timeout 15s /fortran/fpm run"',demux=True)
+    copy_to('./main.f90', '/home/fortran/playground/app/main.f90', container)
+    copy_to('./program_input.txt', '/home/fortran/playground/program_input.txt', container)
+    copy_to('./fpm.toml','/home/fortran/playground/fpm.toml', container)
+    container.exec_run('sh -c "/home/fortran/fpm build"')
+    a = container.exec_run('sh -c "cat program_input.txt | timeout 15s /home/fortran/fpm run"',demux=True)
 
     return a
 
@@ -80,15 +85,12 @@ def run_code():
     edit_file(data["code"], data["programInput"], data["libs"])
     code_result = execute_code_in_container()
     if code_result.output[0] == None:
-        print(code_result.output)
         output = jsonify({"executed": ""})
         if '<ERROR>' in code_result.output[1].decode():
             output = jsonify({"executed" : code_result.output[1].decode()})
         
         return output, 202
     output = jsonify({"executed": code_result.output[0].decode()})
-    print(code_result.output)
-    
 
     return output, 202
 
