@@ -142,6 +142,15 @@ mode, set `REACT_APP_PLAYGROUND_API_URL` to `http://localhost:5000`.
 If deploying to production, `REACT_APP_PLAYGROUND_API_URL` should be set to
 `https://play-api.fortran-lang.org`.
 
+### Loading Fortran code from your website in the playground
+
+The Playground can Load code from your website by adding a parameter `code` to the URL of Playground. Please **Note:** that the value of the parameter code has to be fortran code which has been **URL Encoded** . This can be done by using JS function `encodeURIComponent()` with the code as its parameter. 
+
+Example: https://play.fortran-lang.org/?code=program+hello%0D%0A++%21+This+is+a+comment+line%3B+it+is+ignored+by+the+compiler%0D%0A++print+%2A%2C+%27Hello%2C+World%21%27%0D%0Aend+program+hello%0D%0A
+
+Here, the fortran program for Hello World has been URL encoded and set to parameter `code` in the URL.
+
+
 ## Deploying to production
 
 This is a guide for deploying the Python backend to production.
