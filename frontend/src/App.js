@@ -37,6 +37,8 @@ function App() {
   const [stdlibOn, setstdlibOn] = useState(false); // state to store package info
   const [exercise, setExercise] = useState(0) // Tutorial Exercise
   const [showTutorial, setshowTutorial] = useState(false)
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
 
   // Handle tutorial buttons
   const goRight = () => {
@@ -109,9 +111,13 @@ const tutfunc = (TutorialCode) =>{
     setText("")
   }
 
+  const loadCode = () => {
+    setText(urlParams.get('code'))
+  }
+
 
   return (
-    <div className="App">
+    <div className="App" onLoad={loadCode}>
       {/*Navbar*/}
       <div style={{paddingBottom: "0.5rem"}}><Navigationbar/></div> 
       <div className='code-wrapper'>
