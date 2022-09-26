@@ -115,8 +115,14 @@ const tutfunc = (TutorialCode) =>{
     setText(urlParams.get('code'))
   }
 
+  const handleKeyDown = event => {
+    if (event.key === 'Control' || event.key === 'Command') {
+      handleClick();
+    }
+  };
+
   return (
-    <div className="App" onLoad={loadCode}>
+    <div className="App" onLoad={loadCode} tabIndex={0} onKeyDown={handleKeyDown}>
       {/*Navbar*/}
       <div style={{paddingBottom: "0.5rem"}}><Navigationbar/></div> 
       <div className='code-wrapper'>
