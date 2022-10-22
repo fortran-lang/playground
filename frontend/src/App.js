@@ -116,7 +116,7 @@ const tutfunc = (TutorialCode) =>{
   }
 
   const handleKeyDown = event => {
-    if (event.key === 'Control' || event.key === 'Command') {
+    if(event.ctrlKey && event.keyCode === 13){
       handleClick();
     }
   };
