@@ -136,39 +136,7 @@ const tutfunc = (TutorialCode) =>{
         <Button title="Libraries" className="selector" variant="lib" onClick={handleShow}><img alt="libs button"  src={Librarylogo} /></Button>
         <Button title="Run" className="selector" variant="run" onClick={handleClick}><img alt="run button" src={RunCode} /></Button>
       </div>
-      <div className='run-button'>
-        {/*Custom theming for bootstrap buttons*/}
-        <style type="text/css">
-            {`
-        .btn-run {
-          background-color: #734f96;
-          color: white;
-        }
-        .btn-run:hover{
-          background-color: #009900 !important;
-          color: white;
-        }
-        .btn-run:active:focus{
-          background-color: #734f96;
-          color: white;
-        }
-        .btn-lib{
-          background-color: #FF8E00;
-          color: white;
-        }
-        .btn-lib:hover{
-          background-color: #FF8E00 !important;
-          color: white;
-        }
-        .btn-lib:active:focus{
-          background-color: #ed8502;
-          color: white;
-        }
-        `}
-        </style>
 
-
-      </div>
       {/*Card component to display output*/}
       <div className='terminal'>
 

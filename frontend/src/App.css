@@ -59,3 +59,29 @@
   align-items: center;
   margin: 2px;
 }
+
+/*Custom theming for bootstrap buttons*/
+.btn-run {
+  background-color: #734f96  !important;
+  color: white;
+}
+.btn-run:hover{
+  background-color: #009900 !important;
+  color: white;
+}
+.btn-run:active:focus{
+  background-color: #734f96  !important;
+  color: white;
+}
+.btn-lib{
+  background-color: #FF8E00  !important;
+  color: white;
+}
+.btn-lib:hover{
+  background-color: #FF8E00 !important;
+  color: white;
+}
+.btn-lib:active:focus{
+  background-color: #ed8502 !important;
+  color: white;
+}
