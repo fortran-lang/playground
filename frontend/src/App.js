@@ -195,7 +195,7 @@ const tutfunc = (TutorialCode) =>{
             </>
 
            :
-           <Card>
+           <Card style={{ width: '100%', height: '70%' }} className="overflow-scroll">
            <Card.Title style={{padding: '0.4em'}}>Welcome to the Fortran Playground</Card.Title>
            <Card.Body>
               <p>Use the editor on the left to type your code,
