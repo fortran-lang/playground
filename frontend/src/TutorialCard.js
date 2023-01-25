@@ -9,18 +9,18 @@ function NewlineText(props) {
 
 
 function TutorialCard(props) {
-  
-  
+
+
   return (
     <Card style={{ width: '100%', height: '50%' }} className="overflow-auto">
-      
+
       <Card.Body>
         <Card.Title>{props.title}</Card.Title>
-        
+
         <Card.Text>
           <NewlineText text={props.content} />
         </Card.Text>
-        
+
       </Card.Body>
     </Card>
   );

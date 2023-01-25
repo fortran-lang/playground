@@ -45,9 +45,9 @@ function App() {
     if(exercise<Tutorial.length - 1){
     setExercise(exercise + 1)
     }
-      
+
       tutfunc(Tutorial[exercise+1].code)
-      
+
   }
   const goLeft = () => {
     if(exercise>0){
@@ -71,7 +71,7 @@ function App() {
     }
 
   };
-  
+
 //Changing code inside editor for tutorial
 const tutfunc = (TutorialCode) =>{
   setText(TutorialCode)
@@ -94,7 +94,7 @@ const tutfunc = (TutorialCode) =>{
   }
   //POST request to Flask server
   const handleClick = async () => {
-    
+
     setOutput('')
     setIsLoading(true);
 
@@ -124,14 +124,14 @@ const tutfunc = (TutorialCode) =>{
   return (
     <div className="App" onLoad={loadCode} tabIndex={0} onKeyDown={handleKeyDown}>
       {/*Navbar*/}
-      <div style={{paddingBottom: "0.5rem"}}><Navigationbar/></div> 
+      <div style={{paddingBottom: "0.5rem"}}><Navigationbar/></div>
       <div className='code-wrapper'>
       {/*Editor Component*/}
       <Editor value={text} height={""} width={"50%"} onChange={value => setText(value)}/>
-      
+
       {/* Buttons */}
       <div className='options'>
-        
+
         <Button title="Reset Editor" className="selector" onClick={resetCode} ><img alt="reset button"  src={ResetCode} /></Button>
         <Button title="Libraries" className="selector" variant="lib" onClick={handleShow}><img alt="libs button"  src={Librarylogo} /></Button>
         <Button title="Run" className="selector" variant="run" onClick={handleClick}><img alt="run button" src={RunCode} /></Button>
@@ -166,59 +166,59 @@ const tutfunc = (TutorialCode) =>{
         }
         `}
         </style>
-        
-        
+
+
       </div>
       {/*Card component to display output*/}
       <div className='terminal'>
-        
+
           <Card style={{width:'100%'}} className="overflow-auto">
             <Card.Header>Output</Card.Header>
             <Card.Body>
-              
+
               <Card.Text>
                 {/* Spinning Animation While Request is processed */}
               {isLoading ? <p className='loading'><Spinner animation="border" size="sm" /></p> : null}
                 <NewlineText text={output} />
               </Card.Text>
-             
+
             </Card.Body>
           </Card>
-          
-          
+
+
           {/*Tutorial Card Component */}
           {showTutorial
            ? <>
-           <TutorialCard title={Tutorial[exercise].title} content={Tutorial[exercise].content} /> 
+           <TutorialCard title={Tutorial[exercise].title} content={Tutorial[exercise].content} />
            <div className='tutButton'><Button onClick={goLeft} >Prev</Button>&nbsp;
            <Button onClick={goRight}>Next</Button></div>
             </>
-          
-           : 
+
+           :
            <Card>
            <Card.Title style={{padding: '0.4em'}}>Welcome to the Fortran Playground</Card.Title>
            <Card.Body>
               <p>Use the editor on the left to type your code,
                you can select your <span style={{color: "#FF8E00", fontWeight: "bold" }}>libraries </span>
                 and provide <span style={{color: "#0d6efd", fontWeight: "bold" }}>custom input</span> for your code
-                using the respective buttons.</p> 
+                using the respective buttons.</p>
                <p>New to Fortran?
                  <p>Try our Quickstart Tutorial</p>
                  <Button onClick={startTutorial}>Start</Button>
                </p>
           </Card.Body>
          </Card>
-           
-          }     
-          
+
+          }
+
           {/* Input Box to provide input for program */}
           <br/>
           <Button onClick={handleInputBox}>User Input</Button>
           {inputOn ? <InputBox value={input} onChange={handleInputChange}/> : null} {/*toggle for input */}
 
-                
-          
-            
+
+
+
           {/*Library selector pop-up modal */}
             <Modal show={show} onHide={handleClose}>
               <Modal.Header closeButton>
@@ -226,7 +226,7 @@ const tutfunc = (TutorialCode) =>{
               </Modal.Header>
               <Modal.Body>Please select the packages you want
                     <Form>
-                            <Form.Check 
+                            <Form.Check
                               type="switch"
                               id="custom-switch"
                               label="stdlib"
@@ -245,9 +245,9 @@ const tutfunc = (TutorialCode) =>{
               </Modal.Footer>
             </Modal>
           </div>
-          
-      
-      
+
+
+
       </div>
     </div>
   );

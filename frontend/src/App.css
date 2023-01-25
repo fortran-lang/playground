@@ -13,7 +13,7 @@
   display:  flex;
   flex-direction: column;
   justify-content: space-around;
-  
+
 }
 
 .run-button{
@@ -33,7 +33,7 @@
 }
 .linkText:hover{
   color:#B3B6B7;
-  
+
 }
 
 .options{
@@ -41,7 +41,7 @@
   display: flex;
   flex-direction: column;
   width: 4em;
-  
+
 }
 
 .output-formmating{
@@ -59,4 +59,3 @@
   align-items: center;
   margin: 2px;
 }
-

@@ -2,10 +2,9 @@ import logo from "./fortran-logo.png"
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from  'react-bootstrap/Nav'
 import Container from 'react-bootstrap/Container'
+
 export default function Navigationbar(){
     return(
-                
-        
         <Navbar bg="dark" variant="dark">
             <Container>
             <Navbar.Brand href="#home">
@@ -28,9 +27,6 @@ export default function Navigationbar(){
             <Nav.Link href="https://github.com/fortran-lang/playground" target="_blank" rel="noopener noreferrer" ><
                 span className="linkText">Github</span>
             </Nav.Link>&nbsp;&nbsp;&nbsp;
-
         </Navbar>
-        
-        
     )
 }
