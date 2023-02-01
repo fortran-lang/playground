@@ -11,6 +11,7 @@ import Card from 'react-bootstrap/Card'
 import RunCode from './run.png'
 import ResetCode from './reset.png'
 import Librarylogo from './libs.png'
+import Rotatelogo from './rotate.png'
 import InputBox from './InputBox';
 import TutorialCard from './TutorialCard';
 import Modal from 'react-bootstrap/Modal';
@@ -159,7 +160,7 @@ const tutfunc = (TutorialCode) =>{
 
       {/* Buttons */}
       <div className='options'>
-		<Button title="Layout" className="selector" variant="run" onClick={handleLayout}><img alt="run button" src={RunCode} /></Button>
+		<Button title="Layout" className="selector" variant="rotate" onClick={handleLayout}><img alt="run button" src={Rotatelogo} /></Button>
         <Button title="Reset Editor" className="selector" onClick={resetCode} ><img alt="reset button"  src={ResetCode} /></Button>
         <Button title="Libraries" className="selector" variant="lib" onClick={handleShow}><img alt="libs button"  src={Librarylogo} /></Button>
         <Button title="Run" className="selector" variant="run" onClick={handleClick}><img alt="run button" src={RunCode} /></Button>

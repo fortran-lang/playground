@@ -100,3 +100,15 @@
   background-color: #ed8502 !important;
   color: white;
 }
+.btn-rotate {
+  background-color: #009900 !important;
+  color: white;
+}
+.btn-rotate:hover{
+  background-color: #027702  !important;
+  color: white;
+}
+.btn-rotate:active:focus{
+  background-color: #009900  !important;
+  color: white;
+}
