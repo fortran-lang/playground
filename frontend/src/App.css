@@ -1,12 +1,18 @@
 
-.code-wrapper{
-  margin: 0.5rem;
+.main-container{
+  width: 100%;
+  height: auto;
+  padding: 0.5rem;
   display: flex;
   justify-content: space-between;
 }
 
+.my-editor {
+  width: 50%;
+  overflow: auto;
+}
+
 .terminal{
-  height: 35rem;
   width: 50%;
   border: 2px solid black;
   padding: 0.2rem;
@@ -37,11 +43,20 @@
 }
 
 .options{
-
   display: flex;
   flex-direction: column;
   width: 4em;
+  height: 100%;
+  margin: 0rem 0.5rem 0rem 0.5rem;
+}
 
+.potrait-options {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin: 0.5rem 0rem 0.5rem 0rem;
+  overflow-x: auto;
+  /* justify-content: space-around; */
 }
 
 .output-formmating{

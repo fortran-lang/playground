@@ -125,7 +125,7 @@ const tutfunc = (TutorialCode) =>{
     <div className="App" onLoad={loadCode} tabIndex={0} onKeyDown={handleKeyDown}>
       {/*Navbar*/}
       <div style={{paddingBottom: "0.5rem"}}><Navigationbar/></div>
-      <div className='code-wrapper'>
+      <div className='main-container'>
       {/*Editor Component*/}
       <Editor value={text} height={""} width={"50%"} onChange={value => setText(value)}/>
 
