@@ -32,6 +32,8 @@ function App() {
   const [ input, setInput ] = useState('') // user input
   const [inputOn, setinputOn] = useState(false) // toggle for input button
   const [show, setShow] = useState(false); // library modal toggle
+  const [height, setHeight] = useState("calc(100vh - 72px)");
+  const [potrait, setPotrait] = useState(false); // potrait view
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [stdlibOn, setstdlibOn] = useState(false); // state to store package info
@@ -106,6 +108,30 @@ const tutfunc = (TutorialCode) =>{
 
   }
 
+  const handleLayout = () => {
+	const container = document.querySelector('.main-container');
+	const editor = document.querySelector('.my-editor');
+	const options = document.querySelector('.options');
+	const terminal = document.querySelector('.terminal');
+
+	if (potrait) {
+		container.style.flexDirection="row";
+		options.classList.remove('potrait-options');
+		options.style.flexDirection="column";
+		terminal.classList.remove('w-100');
+		editor.classList.remove('w-100');
+		setHeight("calc(100vh - 72px)");
+	} else {
+		container.style.flexDirection="column";
+		options.classList.add('potrait-options');
+		options.style.flexDirection="row";
+		terminal.classList.add('w-100');
+		editor.classList.add('w-100');
+		setHeight("calc((100vh - 132px) / 2)");
+	}
+	setPotrait(!potrait);
+  }
+
     //reset code button
   const resetCode = () => {
     setText("")
@@ -124,21 +150,23 @@ const tutfunc = (TutorialCode) =>{
   return (
     <div className="App" onLoad={loadCode} tabIndex={0} onKeyDown={handleKeyDown}>
       {/*Navbar*/}
-      <div style={{paddingBottom: "0.5rem"}}><Navigationbar/></div>
+      <div><Navigationbar/></div>
       <div className='main-container'>
       {/*Editor Component*/}
-      <Editor value={text} height={""} width={"50%"} onChange={value => setText(value)}/>
+      <div className='my-editor' style={{height: height}}>
+		<Editor value={text} height={height} onChange={value => setText(value)}/>
+	  </div>
 
       {/* Buttons */}
       <div className='options'>
-
+		<Button title="Layout" className="selector" variant="run" onClick={handleLayout}><img alt="run button" src={RunCode} /></Button>
         <Button title="Reset Editor" className="selector" onClick={resetCode} ><img alt="reset button"  src={ResetCode} /></Button>
         <Button title="Libraries" className="selector" variant="lib" onClick={handleShow}><img alt="libs button"  src={Librarylogo} /></Button>
         <Button title="Run" className="selector" variant="run" onClick={handleClick}><img alt="run button" src={RunCode} /></Button>
       </div>
 
       {/*Card component to display output*/}
-      <div className='terminal'>
+      <div className='terminal' style={{height: height}}>
 
           <Card style={{width:'100%'}} className="overflow-auto">
             <Card.Header>Output</Card.Header>
