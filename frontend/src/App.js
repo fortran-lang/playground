@@ -160,7 +160,7 @@ const tutfunc = (TutorialCode) =>{
 
       {/* Buttons */}
       <div className='options'>
-		<Button title="Layout" className="selector" variant="rotate" onClick={handleLayout}><img alt="run button" src={Rotatelogo} /></Button>
+        <Button title="Layout" className="selector" variant="rotate" onClick={handleLayout}><img alt="rotate button" src={Rotatelogo} /></Button>
         <Button title="Reset Editor" className="selector" onClick={resetCode} ><img alt="reset button"  src={ResetCode} /></Button>
         <Button title="Libraries" className="selector" variant="lib" onClick={handleShow}><img alt="libs button"  src={Librarylogo} /></Button>
         <Button title="Run" className="selector" variant="run" onClick={handleClick}><img alt="run button" src={RunCode} /></Button>
