@@ -15,7 +15,7 @@ export default function Editor(props){
     name="UNIQUE_ID_OF_DIV"
     editorProps={{ $blockScrolling: true }}
     value={props.value}
-    width={props.width}
+    width="100%"
     height={props.height}
     readOnly={props.snippet}
     showGutter={props.gutter}
