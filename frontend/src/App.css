@@ -75,6 +75,10 @@
   margin: 2px;
 }
 
+.selector img{
+  width : 24px;
+}
+
 /*Custom theming for bootstrap buttons*/
 .btn-run {
   background-color: #734f96  !important;
@@ -110,5 +114,19 @@
 }
 .btn-rotate:active:focus{
   background-color: #009900  !important;
+  color: white;
+}
+
+.btn-light {
+  background-color: #F7F7F7 !important;
+  /* color: white; */
+}
+
+.btn-light:hover{
+  background-color: #eeeeee  !important;
+  color: white;
+}
+.btn-light:active:focus{
+  background-color: #dddddd  !important;
   color: white;
 }
