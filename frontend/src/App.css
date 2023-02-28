@@ -5,6 +5,7 @@
   padding: 0.5rem;
   display: flex;
   justify-content: space-between;
+  background-color: white;
 }
 
 .my-editor {

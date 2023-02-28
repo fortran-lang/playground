@@ -161,10 +161,13 @@ function App() {
 			<div>
 				<Navigationbar />
 			</div>
-			<div className='main-container'>
+			<div
+				className='main-container'
+				style={theme === 'monokai' ? { backgroundColor: 'black' } : { backgroundColor: 'white' }}
+			>
 				{/*Editor Component*/}
 				<div className='my-editor' style={{ height: height }}>
-          <Editor value={text} height={height} theme={theme} onChange={(value) => setText(value)} />
+					<Editor value={text} height={height} theme={theme} onChange={(value) => setText(value)} />
 				</div>
 
 				{/* Buttons */}
@@ -182,13 +185,20 @@ function App() {
 						<img alt='run button' src={RunCode} />
 					</Button>
 					<Button title='Light' className='selector' variant='light' onClick={toggleTheme}>
-						<img alt='Light Theme' src={theme === "monokai" ? LightMode : DarkMode } />
+						<img alt='Light Theme' src={theme === 'monokai' ? LightMode : DarkMode} />
 					</Button>
 				</div>
 
 				{/*Card component to display output*/}
 				<div className='terminal' style={{ height: height }}>
-					<Card style={{ width: '100%' }} className='overflow-auto'>
+					<Card
+						style={
+							theme === 'monokai'
+								? { width: '100%', backgroundColor: '#212529', color: 'white' }
+								: { width: '100%', backgroundColor: 'white', color: '#212529' }
+						}
+						className='overflow-auto'
+					>
 						<Card.Header>Output</Card.Header>
 						<Card.Body>
 							<Card.Text>
@@ -205,14 +215,21 @@ function App() {
 					{/*Tutorial Card Component */}
 					{showTutorial ? (
 						<>
-							<TutorialCard title={Tutorial[exercise].title} content={Tutorial[exercise].content} />
+							<TutorialCard title={Tutorial[exercise].title} theme={theme} content={Tutorial[exercise].content} />
 							<div className='tutButton'>
 								<Button onClick={goLeft}>Prev</Button>&nbsp;
 								<Button onClick={goRight}>Next</Button>
 							</div>
 						</>
 					) : (
-						<Card style={{ width: '100%', height: '70%' }} className='overflow-auto'>
+						<Card
+							style={
+								theme === 'monokai'
+									? { width: '100%', height: '70%', backgroundColor: '#212529', color: 'white' }
+									: { width: '100%', height: '70%', backgroundColor: 'white', color: '#212529' }
+							}
+							className='overflow-auto'
+						>
 							<Card.Title style={{ padding: '0.4em' }}>Welcome to the Fortran Playground</Card.Title>
 							<Card.Body>
 								<p>
