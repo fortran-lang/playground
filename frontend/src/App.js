@@ -9,8 +9,8 @@ import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
 import Card from 'react-bootstrap/Card';
 import RunCode from './run.png';
-import DarkMode from './dark.png';
-import LightMode from './light.png';
+import DarkMode from './moon-outline.svg';
+import LightMode from './sun-outline.svg';
 import ResetCode from './reset.png';
 import Librarylogo from './libs.png';
 import Rotatelogo from './rotate.png';
@@ -201,7 +201,7 @@ function App() {
 					>
 						<Card.Header>Output</Card.Header>
 						<Card.Body>
-							<Card.Text>
+							<Card.Text>	
 								{/* Spinning Animation While Request is processed */}
 								{isLoading ? (
 									<p className='loading'>
