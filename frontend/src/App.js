@@ -8,19 +8,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
 import Card from 'react-bootstrap/Card';
-import RunCode from './run.png';
-import DarkMode from './moon-outline.svg';
-import LightMode from './sun-outline.svg';
-import ResetCode from './reset.png';
-import Librarylogo from './libs.png';
-import Rotatelogo from './rotate.png';
 import InputBox from './InputBox';
 import TutorialCard from './TutorialCard';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Tutorial from './tutorial.json'; //Tutorial JSON
-
-//Function to push \n in string to new lines
+import { ArrowClockwise, MoonStarsFill, PlayFill, Stack, SunFill, SymmetryHorizontal, SymmetryVertical} from "react-bootstrap-icons"
+ //Function to push \n in string to new lines
 function NewlineText(props) {
 	const text = props.text;
 	return <div className='output-formmating'>{text}</div>;
@@ -173,19 +167,19 @@ function App() {
 				{/* Buttons */}
 				<div className='options'>
 					<Button title='Layout' className='selector' variant='rotate' onClick={handleLayout}>
-						<img alt='rotate button' src={Rotatelogo} />
+						{!potrait ? <SymmetryHorizontal style={{color : "white", fontSize:"24px"}}/> : <SymmetryVertical style={{color : "white", fontSize:"24px"}}/>}
 					</Button>
 					<Button title='Reset Editor' className='selector' onClick={resetCode}>
-						<img alt='reset button' src={ResetCode} />
+						<ArrowClockwise style={{color : "white", fontSize:"24px"}}/>
 					</Button>
 					<Button title='Libraries' className='selector' variant='lib' onClick={handleShow}>
-						<img alt='libs button' src={Librarylogo} />
+						<Stack style={{color : "white", fontSize:"24px"}}/>
 					</Button>
 					<Button title='Run' className='selector' variant='run' onClick={handleClick}>
-						<img alt='run button' src={RunCode} />
+						<PlayFill style={{color : "white", fontSize:"24px"}} />
 					</Button>
-					<Button title='Light' className='selector' variant='light' onClick={toggleTheme}>
-						<img alt='Light Theme' src={theme === 'monokai' ? LightMode : DarkMode} />
+					<Button title={theme === 'monokai' ? 'Light Mode' : 'Dark Mode'} className='selector' variant='light' onClick={toggleTheme}>
+						{theme !== 'monokai' ? <MoonStarsFill style={{color : "black", fontSize:"24px"}}/> : <SunFill style={{color : "#F7B011", fontSize:"24px"}}/>}
 					</Button>
 				</div>
 
