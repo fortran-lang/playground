@@ -82,15 +82,15 @@
 
 /*Custom theming for bootstrap buttons*/
 .btn-run {
-  background-color: #734f96  !important;
+  background-color: #009900  !important;
   color: white;
 }
 .btn-run:hover{
-  background-color: #009900 !important;
+  background-color: #018701 !important;
   color: white;
 }
 .btn-run:active:focus{
-  background-color: #734f96  !important;
+  background-color: #018701  !important;
   color: white;
 }
 .btn-lib{
@@ -106,15 +106,15 @@
   color: white;
 }
 .btn-rotate {
-  background-color: #009900 !important;
+  background-color: #734f96 !important;
   color: white;
 }
 .btn-rotate:hover{
-  background-color: #027702  !important;
+  background-color: #674886   !important;
   color: white;
 }
 .btn-rotate:active:focus{
-  background-color: #009900  !important;
+  background-color: #734f96   !important;
   color: white;
 }
 

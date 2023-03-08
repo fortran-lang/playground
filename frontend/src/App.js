@@ -13,8 +13,16 @@ import TutorialCard from './TutorialCard';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Tutorial from './tutorial.json'; //Tutorial JSON
-import { ArrowClockwise, MoonStarsFill, PlayFill, Stack, SunFill, SymmetryHorizontal, SymmetryVertical} from "react-bootstrap-icons"
- //Function to push \n in string to new lines
+import {
+	ArrowClockwise,
+	MoonStarsFill,
+	PlayFill,
+	Stack,
+	SunFill,
+	SymmetryHorizontal,
+	SymmetryVertical,
+} from 'react-bootstrap-icons';
+//Function to push \n in string to new lines
 function NewlineText(props) {
 	const text = props.text;
 	return <div className='output-formmating'>{text}</div>;
@@ -166,20 +174,33 @@ function App() {
 
 				{/* Buttons */}
 				<div className='options'>
-					<Button title='Layout' className='selector' variant='rotate' onClick={handleLayout}>
-						{!potrait ? <SymmetryHorizontal style={{color : "white", fontSize:"24px"}}/> : <SymmetryVertical style={{color : "white", fontSize:"24px"}}/>}
+					<Button title='Run' className='selector' variant='run' onClick={handleClick}>
+						<PlayFill style={{ color: 'white', fontSize: '24px' }} />
 					</Button>
 					<Button title='Reset Editor' className='selector' onClick={resetCode}>
-						<ArrowClockwise style={{color : "white", fontSize:"24px"}}/>
+						<ArrowClockwise style={{ color: 'white', fontSize: '24px' }} />
 					</Button>
 					<Button title='Libraries' className='selector' variant='lib' onClick={handleShow}>
-						<Stack style={{color : "white", fontSize:"24px"}}/>
+						<Stack style={{ color: 'white', fontSize: '24px' }} />
 					</Button>
-					<Button title='Run' className='selector' variant='run' onClick={handleClick}>
-						<PlayFill style={{color : "white", fontSize:"24px"}} />
+					<Button title='Layout' className='selector' variant='rotate' onClick={handleLayout}>
+						{!potrait ? (
+							<SymmetryHorizontal style={{ color: 'white', fontSize: '24px' }} />
+						) : (
+							<SymmetryVertical style={{ color: 'white', fontSize: '24px' }} />
+						)}
 					</Button>
-					<Button title={theme === 'monokai' ? 'Light Mode' : 'Dark Mode'} className='selector' variant='light' onClick={toggleTheme}>
-						{theme !== 'monokai' ? <MoonStarsFill style={{color : "black", fontSize:"24px"}}/> : <SunFill style={{color : "#F7B011", fontSize:"24px"}}/>}
+					<Button
+						title={theme === 'monokai' ? 'Light Mode' : 'Dark Mode'}
+						className='selector'
+						variant='light'
+						onClick={toggleTheme}
+					>
+						{theme !== 'monokai' ? (
+							<MoonStarsFill style={{ color: 'black', fontSize: '24px' }} />
+						) : (
+							<SunFill style={{ color: '#F7B011', fontSize: '24px' }} />
+						)}
 					</Button>
 				</div>
 
@@ -195,7 +216,7 @@ function App() {
 					>
 						<Card.Header>Output</Card.Header>
 						<Card.Body>
-							<Card.Text>	
+							<Card.Text>
 								{/* Spinning Animation While Request is processed */}
 								{isLoading ? (
 									<p className='loading'>
