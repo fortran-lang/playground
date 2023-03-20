@@ -155,7 +155,7 @@ function App() {
 		}
 	};
 
-	const HorizontalLayoutIcon = () => {
+	const LayoutIcon = ({ portrait }) => {
 		return (
 			<div style={{
 				width: "24px",
@@ -163,21 +163,7 @@ function App() {
 				border: "2px solid white",
 				margin: "0 auto",
 				borderRadius : "3px",
-				transform: "rotate(90deg)"
-			}}>
-				<span style={{ border: "0.1px solid white", borderBottom: "0px" }}></span>
-			</div>
-		)
-	}
-
-	const VerticalLayoutIcon = () => {
-		return (
-			<div style={{
-				width: "24px",
-				height: "24px",
-				border: "2px solid white",
-				borderRadius : "3px",
-				margin: "0 auto",
+				transform: (portrait ? "none" : "rotate(90deg)")
 			}}>
 				<span style={{ border: "0.1px solid white", borderBottom: "0px" }}></span>
 			</div>
@@ -211,7 +197,7 @@ function App() {
 						<Stack style={{ color: 'white', fontSize: '24px' }} />
 					</Button>
 					<Button title='Layout' className='selector' variant='rotate' onClick={handleLayout}>
-						{!potrait ? <HorizontalLayoutIcon /> : <VerticalLayoutIcon />}
+						<LayoutIcon portrait={potrait} />
 					</Button>
 					<Button
 						title={theme === 'monokai' ? 'Light Mode' : 'Dark Mode'}
