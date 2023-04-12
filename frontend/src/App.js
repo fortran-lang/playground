@@ -18,9 +18,7 @@ import {
 	MoonStarsFill,
 	PlayFill,
 	Stack,
-	SunFill,
-	SymmetryHorizontal,
-	SymmetryVertical,
+	SunFill
 } from 'react-bootstrap-icons';
 //Function to push \n in string to new lines
 function NewlineText(props) {
@@ -157,6 +155,21 @@ function App() {
 		}
 	};
 
+	const LayoutIcon = ({ portrait }) => {
+		return (
+			<div style={{
+				width: "24px",
+				height: "24px",
+				border: "2px solid white",
+				margin: "0 auto",
+				borderRadius : "3px",
+				transform: (portrait ? "none" : "rotate(90deg)")
+			}}>
+				<span style={{ border: "0.1px solid white", borderBottom: "0px" }}></span>
+			</div>
+		)
+	}
+
 	return (
 		<div className='App' onLoad={loadCode} tabIndex={0} onKeyDown={handleKeyDown}>
 			{/*Navbar*/}
@@ -184,11 +197,7 @@ function App() {
 						<Stack style={{ color: 'white', fontSize: '24px' }} />
 					</Button>
 					<Button title='Layout' className='selector' variant='rotate' onClick={handleLayout}>
-						{!potrait ? (
-							<SymmetryHorizontal style={{ color: 'white', fontSize: '24px' }} />
-						) : (
-							<SymmetryVertical style={{ color: 'white', fontSize: '24px' }} />
-						)}
+						<LayoutIcon portrait={potrait} />
 					</Button>
 					<Button
 						title={theme === 'monokai' ? 'Light Mode' : 'Dark Mode'}
