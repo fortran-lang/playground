@@ -85,7 +85,6 @@ function App() {
 	const handleInputChange = (e) => {
 		e.preventDefault(); // prevent the default action
 		setInput(e.target.value); // set name to e.target.value (event)
-		console.log(input);
 	};
 
 	//inputbox toggle
